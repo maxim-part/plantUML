@@ -1,0 +1,12 @@
+@startuml
+
+participant "Покупатель" as p #LightGreen
+actor "Продавец КИС РМ" as sm #red
+
+
+p -> sm: Товар \nТовар2
+p <-- sm: Сумма к оплата
+p -> sm: Деньги
+sm --> p: Кассовый чек
+
+@enduml

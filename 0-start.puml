@@ -1,0 +1,11 @@
+@startuml
+
+actor "Брат 1" as a
+
+actor "Брат 2" as b
+
+note top of a : В чем сила, брат?
+note top of b : В диаграммах, брат!
+
+
+@enduml

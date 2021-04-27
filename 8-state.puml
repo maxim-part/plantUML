@@ -1,0 +1,26 @@
+' Импорт иконок и создание удобных алиасов
+!define ICONURL https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/v2.0.0
+!includeurl ICONURL/common.puml
+!includeurl ICONURL/font-awesome-5/user_cog.puml
+!includeurl ICONURL/font-awesome-5/user_check.puml
+!define _CS scale=0.4
+!define _user_cog <$user_cog{_CS}>
+!define _user_check <$user_check{_CS}>
+
+'Легенда
+legend
+  ..**Условные обозначения**..
+  _user_cog — Сотрудник
+  _user_check — Контролёр
+endlegend
+
+'Спецификация диаграммы состояний
+state "Документ формируется" as prepare_doc
+[*] --> prepare_doc
+
+state "Документ на проверке" as check_doc
+prepare_doc --> check_doc : _user_cog \n Передать \nна проверку
+check_doc --> prepare_doc : _user_check \n Отправить \nна доработку
+
+state "Документ проверен" as ready_doc
+check_doc --> ready_doc: _user_check \n Установить отметку \n<U+00AB>Проверено<U+00BB>

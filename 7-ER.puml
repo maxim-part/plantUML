@@ -1,0 +1,59 @@
+@startuml
+!define Table(name,desc) class name as "desc" << (T,#FFAAAA) >>
+' primary key - жирным
+' unique - зеленым
+' not_null - подчеркивание
+!define primary_key(x) <b>x</b>
+!define unique(x) <color:green>x</color>
+!define not_null(x) <u>x</u>
+' еще можно:
+' <i></i>
+' <back:COLOR></color>, where color is a color name or html color code
+' (#FFAACC)
+' см: http://plantuml.com/classes.html#More
+hide methods
+hide stereotypes
+
+' сущности
+
+Table(user, "user\n(пользователи системы)") {
+primary_key(id) number[9]
+not_null(unique(username)) varchar2[32 char]
+not_null(password) varchar2[64 char]
+}
+
+Table(session, "session\n(сессии пользователя)") {
+primary_key(id) number[9]
+not_null(user_id) number[9]
+not_null(unique(session_id)) varchar2[64 char]
+}
+
+Table(user_profile, "user_profile\n(доп. информация пользователя)") {
+primary_key(user_id) number[9]
+age number[4]
+gender number[4]
+birthday date
+}
+
+Table(group, "group\n(группы пользователей)") {
+primary_key(id) number[9]
+not_null(name) varchar2[32 char]
+}
+
+Table(user_group, "user_group\n(пользователи в группах)") {
+primary_key(user_id) number[9]
+primary_key(group_id) number[9]
+joined_at date
+}
+
+' связи
+' 1:1
+user -- user_profile : "У пользователя один профиль"
+' 1:много
+user --> session : "Пользователь можем создавать\n много сессий"
+' много:много
+' два варианта, как показать такую связь
+user "1" --> "*" user_group : "Пользователь состоит \nв нескольких группах"
+group "1" --> "0..N" user_group : "Группа включает \nнескольпо пользователей"
+
+@enduml

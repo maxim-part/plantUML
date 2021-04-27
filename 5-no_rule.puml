@@ -1,0 +1,27 @@
+@startuml
+skinparam rectangle  {
+  roundCorner 0
+  roundCorner<<outcome>> 25
+}
+
+!define ICONURL https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/v2.0.0
+!includeurl ICONURL/common.puml
+!includeurl ICONURL/font-awesome-5/question_circle.puml
+!includeurl ICONURL/font-awesome-5/check_circle.puml
+!define _CS scale=0.4
+!define _qc <$question_circle{_CS}>
+!define _cc <$check_circle{_CS}>
+
+rectangle "_qc [[https://confluence.app.local/pages/viewpage.action?pageId=375465616 условие один]]" as cond1
+rectangle "_cc вариант раз" <<outcome>> as ch1
+cond1 --> ch1 : да
+rectangle "_qc условие два" as cond2
+cond1 --> cond2 : нет
+cond2 --> ch1 : нет
+rectangle "_qc условие три" as cond3
+cond2 --> cond3 : да
+cond3 --> ch1 : пустое
+rectangle "_cc вариант два" <<outcome>> as ch2
+cond3 --> ch2 : заполнено
+
+@enduml
